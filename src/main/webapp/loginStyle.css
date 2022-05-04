@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to top left, white, #FCC981, #F8C8DC), linear-gradient(to top right, #F8C8DC, #F699CD, #FCC981);
+	height: 100vh;
+}
+
+.navbar {
+	background-color: transparent;
+	overflow: hidden;
+	padding-top: 2%;
+	padding-right: 4%
+}
+
+.navbar img{
+	width: 4%;
+}
+
+.navbar a{
+	display: flex;
+	float: center;
+	color: #707070;
+	text-align: center;
+	padding: 14px 16px;
+ 	text-decoration: none;
+	font-size: 24px;
+} 
+
+.navbar a:hover {
+  color: #FFFFFF;
+}
+
+.navbar button{
+	background-color: white;
+	border: none;
+	color: #707070;
+	border-radius: 6px;
+	margin-right: 40px;
+}
+
+.container {
+    margin: auto;
+    width: 60%;
+}
+
+#loginInfo p {
+	margin-top: 20px;
+}
+
+.box-form {
+    background-color: transparent;
+    padding-top: 20%;
+    border-collapse: separate;
+    width: 50%;
+    margin: auto;
+}
+
+.box-form form {
+	margin-top: 50px;
+}
+
+.box-form form a {
+    margin: 3%;
+}
+
+#loginSubmit {
+	border: 1px solid #FFA500;
+	background-color: #FFA500;
+	margin-top: 5%;
+	width: 100%;
+}
