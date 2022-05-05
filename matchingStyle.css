@@ -38,6 +38,10 @@ body {
 	margin-right: 40px;
 }
 
+.container {
+    width: 100%;
+}
+
 .poster {
     position: relative;
     text-align: center;
@@ -54,9 +58,8 @@ body {
 
 .metrics {
     position: absolute;
-    text-align: center;
-    top: 30px;
-    right: 0px;
+    top: 5%;
+    left: 30%;
     text-align: center;
     visibility: hidden;
 }
