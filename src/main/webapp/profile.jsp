@@ -15,9 +15,34 @@
 
 		<a class="active" href="index.jsp">Home</a>
 		<a href="#aboutus">About Us</a>
-		<a href="profile.jsp">Profile</a>
+		<a href="ProfileDispatcher">Profile</a>
 		<a href="#history">Match History</a>
-		<button type="button">Login</button>
+		
+		<%Cookie[] cookies= null; 
+			cookies = request.getCookies();
+  			int idx = 0;
+  			boolean found = false;
+  			if(cookies != null) {
+  				for(int i = 0; i < cookies.length; i++) {
+  	  				if((cookies[i].getName()).trim().equals("ck_name")) {
+  	  					found = true;
+  	  					break;
+  	  				}
+  	  				idx++;
+  	  			}
+  			}
+  			%>
+  			<%if(!found) {%>
+  			<form action="userLogin.html">
+  			<button type="submit">Login</button>
+  			</form>
+  			<%} %>
+  			<%if(found) {%>
+  				<p>Hi, <%out.print(cookies[idx].getValue().replace('=', ' ')); %> </p>
+  				<form action="LogoutDispatcher" method="GET">
+  				<button type="submit">Logout</button>
+  				</form>
+  			<%} %>
 	</div>
 
 	<% out.println(request.getAttribute("display")); %>

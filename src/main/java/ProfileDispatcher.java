@@ -52,14 +52,17 @@ public class ProfileDispatcher extends HttpServlet {
             e.printStackTrace();
         }
     	
-    	
+    	PrintWriter out = response.getWriter();
     	String url = "jdbc:mysql://localhost/final_project"; 
     	String user = "root"; 
     	String pwd = "root";  //your secret database pwd
     	
     	String display = "<h1 style=\"text-align:center; margin-top: 20px;\">My Profile</h1>";
     	
-    	Cookie[] cookies = request.getCookies();
+    	
+    	Cookie[] cookies = null;
+    	cookies = request.getCookies();
+    	
 		int idx = 0;
 		boolean found = false;
 		if(cookies != null) {
@@ -71,6 +74,13 @@ public class ProfileDispatcher extends HttpServlet {
 	  			}
 	  			idx++;
 	  		}
+		}
+		if(!found) {
+			String errorMessage = "<p style=\"background-color:#FFCCCB;text-align:center;padding: 15px;\">"
+        			+ "Please log in or register before trying to view profile.</p>";
+			out.println(errorMessage);
+    		request.getRequestDispatcher("/index.jsp").include(request, response);
+    		return;
 		}
 		String userName = cookies[idx].getValue().replace('=', ' ');	
     	
@@ -95,9 +105,7 @@ public class ProfileDispatcher extends HttpServlet {
         					+ "<h3 style=\"text-align:center; margin-top: 2%\">Biography: " + rs.getString("biography") + "</h3>"
         					+ "<h3 style=\"text-align:center; margin-top: 2%\">Email: " + rs.getString("email") + "</h3>"
         					+ "</div>";
-        		}
-        		System.out.println(display);
-        		
+        		}        		
         		
     		}
     		catch (SQLException ex) {
