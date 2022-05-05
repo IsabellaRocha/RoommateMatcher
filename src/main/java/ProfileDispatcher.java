@@ -68,7 +68,7 @@ public class ProfileDispatcher extends HttpServlet {
 		if(cookies != null) {
 			for(int i = 0; i < cookies.length; i++) {
 				System.out.println(cookies[i].getValue());
-	  			if((cookies[i].getName()).trim().equals("ck_name")) {
+	  			if((cookies[i].getName()).trim().equals("ck_email")) {
 	  				found = true;
 	  				break;
 	  			}
@@ -82,20 +82,20 @@ public class ProfileDispatcher extends HttpServlet {
     		request.getRequestDispatcher("/index.jsp").include(request, response);
     		return;
 		}
-		String userName = cookies[idx].getValue().replace('=', ' ');	
+		String userEmail = cookies[idx].getValue();	
     	
-    	String sql = "SELECT age, gender, budget, min_roommate_age, max_roommate_age, housing_style, biography, email "
+    	String sql = "SELECT age, gender, budget, min_roommate_age, max_roommate_age, housing_style, biography, full_name "
             			+ "FROM user_info "
-            			+ "WHERE full_name = ? ";
+            			+ "WHERE email = ? ";
     		
     		try (Connection conn = DriverManager.getConnection(url, user, pwd);
         			PreparedStatement ps = conn.prepareStatement(sql);) {
-    			ps.setString(1, userName);
+    			ps.setString(1, userEmail);
         		ResultSet rs= ps.executeQuery();
         		while(rs.next()) {	
         			
         			display += "<div class=\"container\" style=\"border: solid 2px; border-color: white;\">"
-        					+ "<h3 style=\"text-align:center; margin-top: 2%\">Name: " + userName+ "</h3>"
+        					+ "<h3 style=\"text-align:center; margin-top: 2%\">Name: " + rs.getString("full_name")+ "</h3>"
         					+ "<h3 style=\"text-align:center; margin-top: 2%\">Age: " + rs.getInt("age") + "</h3>"
         					+ "<h3 style=\"text-align:center; margin-top: 2%\">Gender: " + rs.getString("gender") + "</h3>"
         					+ "<h3 style=\"text-align:center; margin-top: 2%\">Budget: " + rs.getInt("budget") + "</h3>"
@@ -103,7 +103,7 @@ public class ProfileDispatcher extends HttpServlet {
         					+ "<h3 style=\"text-align:center; margin-top: 2%\">Maximum Roommate Age: " + rs.getInt("max_roommate_age") + "</h3>"
         					+ "<h3 style=\"text-align:center; margin-top: 2%\">Housing style: " + rs.getString("housing_style") + "</h3>"
         					+ "<h3 style=\"text-align:center; margin-top: 2%\">Biography: " + rs.getString("biography") + "</h3>"
-        					+ "<h3 style=\"text-align:center; margin-top: 2%\">Email: " + rs.getString("email") + "</h3>"
+        					+ "<h3 style=\"text-align:center; margin-top: 2%\">Email: " + userEmail + "</h3>"
         					+ "</div>";
         		}        		
         		

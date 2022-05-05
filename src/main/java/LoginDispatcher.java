@@ -99,10 +99,14 @@ public class LoginDispatcher extends HttpServlet {
     	
     	ck.setMaxAge(60*60);
     	response.addCookie(ck);
+    	Cookie cook = new Cookie("ck_email", email);
+    	cook.setMaxAge(60*60);
+    	response.addCookie(cook);
     	
     	response.setContentType("text/html");
     	
     	response.sendRedirect("index.jsp");
+    	
     	
         //TODO
     }

@@ -17,6 +17,7 @@
 		<a href="#aboutus">About Us</a>
 		<a href="ProfileDispatcher">Profile</a>
 		<a href="#history">Match History</a>
+		<a href="#matching">Get Matching!</a>
 		
 		<%Cookie[] cookies= null; 
 			cookies = request.getCookies();
