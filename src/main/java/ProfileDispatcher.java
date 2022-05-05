@@ -72,7 +72,7 @@ public class ProfileDispatcher extends HttpServlet {
 	  			idx++;
 	  		}
 		}
-		
+		String userName = cookies[idx].getValue().replace('=', ' ');	
     	
     	String sql = "SELECT age, gender, budget, min_roommate_age, max_roommate_age, housing_style, biography, email "
             			+ "FROM user_info "
@@ -80,7 +80,7 @@ public class ProfileDispatcher extends HttpServlet {
     		
     		try (Connection conn = DriverManager.getConnection(url, user, pwd);
         			PreparedStatement ps = conn.prepareStatement(sql);) {
-    			ps.setString(1, "%" + userName + "%");
+    			ps.setString(1, userName);
         		ResultSet rs= ps.executeQuery();
         		while(rs.next()) {	
         			
@@ -96,6 +96,7 @@ public class ProfileDispatcher extends HttpServlet {
         					+ "<h3 style=\"text-align:center; margin-top: 2%\">Email: " + rs.getString("email") + "</h3>"
         					+ "</div>";
         		}
+        		System.out.println(display);
         		
         		
     		}
