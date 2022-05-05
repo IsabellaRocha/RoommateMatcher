@@ -15,7 +15,7 @@
 		
 		<a class="active" href="index.jsp">Home</a>
 		<a href="#aboutus">About Us</a>
-		<a href="#profile">Profile</a>
+		<a href="ProfileDispatcher">Profile</a>
 		<a href="#history">Match History</a>
 		
 		<%Cookie[] cookies= null; 
