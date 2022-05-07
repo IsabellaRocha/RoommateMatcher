@@ -58,7 +58,7 @@ public class ProfileDispatcher extends HttpServlet {
     	String pwd = "root";  //your secret database pwd
     	
     	String display = "<h1 style=\"text-align:center; margin-top: 20px;\">My Profile</h1>";
-    	
+		display += "<p style=\"text-align:center; margin-top: 0px;\"> click edit profile to edit profile info </p>";
     	
     	Cookie[] cookies = null;
     	cookies = request.getCookies();
@@ -93,18 +93,70 @@ public class ProfileDispatcher extends HttpServlet {
     			ps.setString(1, userEmail);
         		ResultSet rs= ps.executeQuery();
         		while(rs.next()) {	
-        			
-        			display += "<div class=\"container\" style=\"border: solid 2px; border-color: white;\">"
-        					+ "<h3 style=\"text-align:center; margin-top: 2%\">Name: " + rs.getString("full_name")+ "</h3>"
-        					+ "<h3 style=\"text-align:center; margin-top: 2%\">Age: " + rs.getInt("age") + "</h3>"
-        					+ "<h3 style=\"text-align:center; margin-top: 2%\">Gender: " + rs.getString("gender") + "</h3>"
-        					+ "<h3 style=\"text-align:center; margin-top: 2%\">Budget: " + rs.getInt("budget") + "</h3>"
-        					+ "<h3 style=\"text-align:center; margin-top: 2%\">Minimum Roommate Age: " + rs.getInt("min_roommate_age") + "</h3>"
-        					+ "<h3 style=\"text-align:center; margin-top: 2%\">Maximum Roommate Age: " + rs.getInt("max_roommate_age") + "</h3>"
-        					+ "<h3 style=\"text-align:center; margin-top: 2%\">Housing style: " + rs.getString("housing_style") + "</h3>"
-        					+ "<h3 style=\"text-align:center; margin-top: 2%\">Biography: " + rs.getString("biography") + "</h3>"
-        					+ "<h3 style=\"text-align:center; margin-top: 2%\">Email: " + userEmail + "</h3>"
-        					+ "</div>";
+
+					// input names for EditProfileDispatcher
+					// budget, minAge, maxAge, housingSelect, profileBio
+
+					display += "<div class=\"container\" style=\"border: solid 2px; border-color: white;\">"
+        			+ "<form action=\"EditProfileDispatcher\" method=\"GET\"></form>"
+           			+ "<h4 style=\"text-align:center; margin-top: 2%;\">  Name:" + rs.getString("full_name") +"</h4>"
+            		+ "<h4 style=\"text-align:center; margin-top: 2%;\">  Age: "+ rs.getInt("age") +" </h4>"
+            		+ "<h4 style=\"text-align:center; margin-top: 2%;\">  Gender: "+ rs.getString("gender") +" </h4>"
+            		+ "<div class=\"row\" style=\"text-align:right; margin-top: 2%;\">"
+                	+ "<div class=\"col-6\">"
+                    + "<h4 style=\"text-align:right;\">  Budget: </h4>"
+                	+ "</div>"
+                	+ "<div class=\"col-6\">"
+                    + "<div class=\"input-group\" style=\"font-size: 16px; width: 180px; text-align:left;\">"
+                    + "<div class=\"input-group-prepend\">"
+                    + "<div class=\"input-group-text\" style=\"height: 35px;\">$</div>"
+                    + "</div>"
+                    + "<input name=\"budget\" type=\"number\" class=\"form-control\" id=\"inlineFormInputGroupUsername\" placeholder=\"Budget\" value=\""+ rs.getInt("budget") +"\" style=\"height: 35px;\" required>"
+                    + "<div class=\"input-group-append\">"
+                    + "<span class=\"input-group-text\" style=\"height: 35px;\">.00</span>"
+                    + "</div>"
+                    + "</div>"
+                	+ "</div>"
+            		+ "</div>"
+            		+ "<div class=\"row\">"
+                	+ "<div class=\"col-7\">"
+                    + "<h4 style=\"text-align:right; margin-top: 2%;\">  Minimum Roommate Age: </h4>"
+                	+ "</div>"
+                	+ "<div class=\"col-5\">"
+                    + "<h4 style=\"text-align:left; margin-top: 2%;\">"
+                    + "<input name=\"minAge\" type=\"number\" class=\"form-control\" id=\"roommateMinAge\" placeholder=\"Enter minimum age\" style=\"font-size: 16px; width: 100px; height: 35px;\" value=\""+ rs.getInt("min_roommate_age") +"\" required>"
+                    + "</h4>"
+                	+ "</div>"
+            		+ "</div>"
+            		+ "<div class=\"row\">"
+                	+ "<div class=\"col-7\">"
+                    + "<h4 style=\"text-align:right; margin-top: 2%;\">  Maximum Roommate Age: </h4> </div>"
+                	+ "<div class=\"col-5\">"
+                    + "<h4 style=\"text-align:left; margin-top: 2%;\">"
+                    + "<input name=\"maxAge\" type=\"number\" class=\"form-control\" id=\"roommateMaxAge\" placeholder=\"Enter maximum age\" style=\"font-size: 16px; width: 100px; height: 35px;\" value=\"" + rs.getInt("max_roommate_age") + "\" required>"
+                    + "</h4>"
+                	+ "</div>"
+            		+ "</div>"
+            		+ "<h4 style=\"text-align:center; margin-top: 2%;\">  Housing style: "
+                	+ "<select name=\"housingSelect\" class=\"custom-select form-select-sm\" id=\"housingSelect\" style=\"font-size: 16px; width: 250px;\">"
+                    + "<option selected> "+ rs.getString("housing_style") +" </option>"
+                    + "<option value=\"Apartment\">Apartment</option>"
+                    + "<option value=\"House\">House</option>"
+                    + "<option value=\"Townhouse\">Townhouse</option>"
+                    + "<option value=\"Loft\">Loft</option>"
+					+ "</select>"
+					+ "</h4>"
+            		+ "<h4 style=\"text-align:center; margin-top: 2%;\">  Biography:</h4>"
+                	+ "<div style=\"align-items: center; margin-left: auto; margin-right: auto; width: 400px;\">"
+                    + "<textarea name=\"profileBio\" class=\"form-control\" style=\"height: 100px; width: 100%; padding: 10px;\">"+rs.getString("biography")+"</textarea>"
+                	+ "</div>"
+            		+ "<h4 style=\"text-align:center; margin-top: 2%;\">  Email: "+userEmail+" </h4>"
+            		+ "<div style=\"align-items: center; margin-left: auto; margin-right: auto; width: 100px; margin-top: 5%;\">"
+                	+ "<button class=\"btn btn-primary\" type=\"submit\">Submit Changes</button>"
+            		+ "</div>"
+        			+ "</form>"
+    				+ "</div>"
+					+ "";
         		}        		
         		
     		}

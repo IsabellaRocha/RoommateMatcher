@@ -3,6 +3,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,10 +57,35 @@ public class OptionsDispatcher extends HttpServlet {
     	
     	String display = "";
     	
-    	String sql = "SELECT *"
-    					+ "FROM user_info";
+    	String sql = "SELECT * "
+    					+ "FROM user_info ";
+    	
+    	String userEmail = "";
+    	Cookie[] cookies = null;
+    	cookies = request.getCookies();
+    	
+		int idx = 0;
+		boolean found = false;
+		if(cookies != null) {
+			for(int i = 0; i < cookies.length; i++) {
+				System.out.println(cookies[i].getValue());
+	  			if((cookies[i].getName()).trim().equals("ck_email")) {
+	  				found = true;
+	  				break;
+	  			}
+	  			idx++;
+	  		}
+		}
+		
+		if(found) {
+			sql += "WHERE NOT email = ? ";
+			userEmail = cookies[idx].getValue();	
+		}
     	try (Connection conn = DriverManager.getConnection(url, user, pwd);
         		PreparedStatement ps = conn.prepareStatement(sql);) {
+    		if(found) {
+    			ps.setString(1, userEmail);
+    		}
         	ResultSet rs= ps.executeQuery();
         	
         	
@@ -84,8 +110,13 @@ public class OptionsDispatcher extends HttpServlet {
         				+ "            <div class=\"info\">"
         				+ "                <p>"+ rs.getString("full_name") + "</p>"
         				+ "                <p>Budget: "+ rs.getInt("budget") + "</p>"
+<<<<<<< HEAD
         				+ "					<form action=\"MatchDispatcher\" method=\"GET\">"
         				+ "                <button class=\"btn btn-primary\" value=\"" + rs.getInt("other_id") + "\"type=\"submit\">Match!</button>"
+=======
+        				+ "					<form action=\"MatchedDispatcher\" method=\"GET\">"
+        				+ "                <button class=\"btn btn-primary\" value=\"" + rs.getInt("user_id") + "\"type=\"submit\">Match!</button>"
+>>>>>>> 24577b8b3aa50b326d7e29615f7257460d5674d5
         				+ "					</form> "
         				+ "            </div>"
         				+ "        </div>";
