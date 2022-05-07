@@ -63,16 +63,10 @@
 			ideal roommate matches!
 		</h3>
 		<br><br>
-		<%if(!found) {%>
-		<form action="userLogin.html">
+
+		<form action="OptionsDispatcher">
 		<button type="submit">Get Matching!</button>
 		</form>
-		<%} %>
-		<%if(found) {%>
-		<form action="matching.html">
-		<button type="submit">Get Matching!</button>
-		</form>
-		<%} %>
 	</div>
 </body>
 </html>
