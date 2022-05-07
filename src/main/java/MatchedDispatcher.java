@@ -64,7 +64,7 @@ public class MatchedDispatcher extends HttpServlet {
     	
     	
     	String userEmail = cookies[idx].getValue();
-    	otherID = request.getParameter("otherID");
+    	otherID = request.getParameter("other_id");
     	String query = "SELECT user_id FROM user_info WHERE email = ?";
     	try (Connection conn = DriverManager.getConnection(url, user, pwd);
     			PreparedStatement ps = conn.prepareStatement(query);) {
@@ -86,7 +86,7 @@ public class MatchedDispatcher extends HttpServlet {
     		ps.setString(2, otherID);
     		ps.setBoolean(3, true);
     		
-    		ResultSet rs = ps.executeQuery(sql);
+    		int row = ps.executeUpdate();
     	}
     		catch (SQLException ex ) {
     			System.out.println("SQLException" + ex.getMessage());
