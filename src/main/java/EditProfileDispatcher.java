@@ -154,7 +154,7 @@ public class EditProfileDispatcher extends HttpServlet {
     	
     	//UPDATING user info
 		// budget, minAge, maxAge, housingSelect, profileBio
-    	String sql = "UPDATE user_info SET budget=?, min_roommate_age=?, max_roommate_age=?, housing_style=?, biography=? WHERE email=?";
+    	String sql = "UPDATE user_info SET budget=?, min_roommate_age=?, max_roommate_age=?, housing_style=?, biography=? WHERE email=?;";
     	try (Connection conn = DriverManager.getConnection(url, user, pwd);
     			PreparedStatement ps = conn.prepareStatement(sql);) {
     		ps.setInt(1, budge);
@@ -170,7 +170,7 @@ public class EditProfileDispatcher extends HttpServlet {
     	}
     		
     	response.setContentType("text/html");
-    	response.sendRedirect("ProfileDispatcher.java");
+    	response.sendRedirect("index.jsp");
     	
     }
 

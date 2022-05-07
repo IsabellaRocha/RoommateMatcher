@@ -98,8 +98,8 @@ public class ProfileDispatcher extends HttpServlet {
 					// budget, minAge, maxAge, housingSelect, profileBio
 
 					display += "<div class=\"container\" style=\"border: solid 2px; border-color: white;\">"
-        			+ "<form action=\"EditProfileDispatcher\" method=\"GET\"></form>"
-           			+ "<h4 style=\"text-align:center; margin-top: 2%;\">  Name:" + rs.getString("full_name") +"</h4>"
+        			+ "<form action=\"EditProfileDispatcher\" method=\"GET\">"
+           			+ "<h4 style=\"text-align:center; margin-top: 2%;\">  Name: " + rs.getString("full_name") +"</h4>"
             		+ "<h4 style=\"text-align:center; margin-top: 2%;\">  Age: "+ rs.getInt("age") +" </h4>"
             		+ "<h4 style=\"text-align:center; margin-top: 2%;\">  Gender: "+ rs.getString("gender") +" </h4>"
             		+ "<div class=\"row\" style=\"text-align:right; margin-top: 2%;\">"

@@ -58,7 +58,8 @@ body {
 .metrics {
     position: absolute;
     top: 5%;
-    left: 30%;
+    margin-left:auto;
+    margin-right: auto;
     text-align: center;
     visibility: hidden;
 }
