@@ -58,7 +58,6 @@ public class ProfileDispatcher extends HttpServlet {
     	String pwd = "root";  //your secret database pwd
     	
     	String display = "<h1 style=\"text-align:center; margin-top: 20px;\">My Profile</h1>";
-		display += "<p style=\"text-align:center; margin-top: 0px;\"> click edit profile to edit profile info </p>";
     	
     	Cookie[] cookies = null;
     	cookies = request.getCookies();

@@ -47,8 +47,7 @@
   			<%} %>
 	</div>
 
-    <div class="container-fluid">
-        <div class ="row flex-wrap" id="bruh">
+    
         <% out.println(request.getAttribute("display")); %>
         </div>
         <div id="empty">

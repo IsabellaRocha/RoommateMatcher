@@ -107,8 +107,17 @@ public class OptionsDispatcher extends HttpServlet {
     			ps.setInt(3, minAge);
     		}
         	ResultSet rs= ps.executeQuery();
-        	
-        	
+        	if(!rs.isBeforeFirst()) {
+        		display += "<h1 style=\"text-align:center; margin-top: 20px;\">No potential roommates yet!</h1>";
+        		request.setAttribute("display", display);
+        		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/matching.jsp"); 
+        		dispatcher.forward(request, response); 
+        		return;
+        	}
+        	else {
+        		display += "<div class=\"container-fluid\">\n"
+        				+ "        <div class =\"row flex-wrap\" id=\"bruh\">";
+        	}
         	while(rs.next()) {
         		boolean alreadyLiked = false;
         		

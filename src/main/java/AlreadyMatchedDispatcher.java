@@ -103,6 +103,17 @@ public class AlreadyMatchedDispatcher extends HttpServlet {
         		PreparedStatement ps4 = conn.prepareStatement(sql4);) {
     		ps4.setInt(1, userID);
     		ResultSet rs4 = ps4.executeQuery();
+    		if(!rs4.isBeforeFirst()) {
+        		display += "<h1 style=\"text-align:center; margin-top: 20px;\">No matches yet!</h1>";
+        		request.setAttribute("display", display);
+        		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/matching.jsp"); 
+        		dispatcher.forward(request, response); 
+        		return;
+        	}
+    		else {
+    			display += "<div class=\"container-fluid\">\r\n"
+    					+ "        <div class =\"row flex-wrap\" id=\"bruh\">";
+    		}
     		while (rs4.next())
     		{
     			// Search for all the info about your matched person i
