@@ -37,11 +37,9 @@ CREATE TABLE `response_table` (
 );
 
 CREATE TABLE `matches_table` (
-	`user_id` int NOT NULL,
-    `other_id` int NOT NULL
+	`user_id` int NOT NULL UNIQUE,
+    `other_id` int NOT NULL UNIQUE
 );
 
 ALTER TABLE user_info AUTO_INCREMENT = 1;
 ALTER TABLE login_info AUTO_INCREMENT = 1;
-ALTER TABLE response_table AUTO_INCREMENT = 1;
-ALTER TABLE matches_table AUTO_INCREMENT = 1;

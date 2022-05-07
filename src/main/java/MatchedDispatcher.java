@@ -112,7 +112,7 @@ public class MatchedDispatcher extends HttpServlet {
                 		// rs3 is not empty
                 	{
                 		// if both searches go through, insert match entry into matches table
-                		String sql3 = "INSERT INTO matches_table(user_id,other_id) VALUES (?,?), (?,?)";
+                		String sql3 = "INSERT IGNORE INTO matches_table(user_id,other_id) VALUES (?,?), (?,?)";
                     	try (Connection conn3 = DriverManager.getConnection(url, user, pwd);
                         		PreparedStatement ps3 = conn3.prepareStatement(sql3);) {
                     		ps3.setInt(1, userID);
