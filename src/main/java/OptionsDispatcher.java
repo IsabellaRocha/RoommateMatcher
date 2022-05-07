@@ -85,7 +85,7 @@ public class OptionsDispatcher extends HttpServlet {
         				+ "                <p>"+ rs.getString("full_name") + "</p>"
         				+ "                <p>Budget: "+ rs.getInt("budget") + "</p>"
         				+ "					<form action=\"MatchDispatcher\" method=\"GET\">"
-        				+ "                <button class=\"btn btn-primary\" value=\"" + rs.getInt("user_id") + "\"type=\"submit\">Match!</button>"
+        				+ "                <button class=\"btn btn-primary\" value=\"" + rs.getInt("other_id") + "\"type=\"submit\">Match!</button>"
         				+ "					</form> "
         				+ "            </div>"
         				+ "        </div>";
