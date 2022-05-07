@@ -65,12 +65,13 @@ public class MatchedDispatcher extends HttpServlet {
     	
     	String userEmail = cookies[idx].getValue();
     	otherID = request.getParameter("other_id");
-    	String query = "SELECT user_id FROM user_info WHERE email = ?";
+    	String query = "SELECT user_id FROM user_info WHERE email = ? ";
     	try (Connection conn = DriverManager.getConnection(url, user, pwd);
     			PreparedStatement ps = conn.prepareStatement(query);) {
     		
-    		ps.setString(1, userEmail);
-			ResultSet rs = ps.executeQuery(query);
+    		ps.setString(1, userEmail);    		
+			ResultSet rs = ps.executeQuery();
+			rs.next();
 			userID = rs.getInt("user_id");
     	}
     	
