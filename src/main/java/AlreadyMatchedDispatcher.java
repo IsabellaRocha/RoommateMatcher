@@ -133,6 +133,7 @@ public class AlreadyMatchedDispatcher extends HttpServlet {
             				+ "            <div class=\"info\">"
             				+ "                <p>"+ rs5.getString("full_name") + "</p>"
             				+ "                <p>Budget: "+ rs5.getInt("budget") + "</p>"
+            				+ "				   <p><a href=\"mailto:"+ rs5.getString("email")+"\">Email them here!</p>"
             				+ "            </div>"
             				+ "        </div>";
 	        	}
