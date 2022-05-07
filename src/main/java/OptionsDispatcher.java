@@ -3,6 +3,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,10 +57,35 @@ public class OptionsDispatcher extends HttpServlet {
     	
     	String display = "";
     	
-    	String sql = "SELECT *"
-    					+ "FROM user_info";
+    	String sql = "SELECT * "
+    					+ "FROM user_info ";
+    	
+    	String userEmail = "";
+    	Cookie[] cookies = null;
+    	cookies = request.getCookies();
+    	
+		int idx = 0;
+		boolean found = false;
+		if(cookies != null) {
+			for(int i = 0; i < cookies.length; i++) {
+				System.out.println(cookies[i].getValue());
+	  			if((cookies[i].getName()).trim().equals("ck_email")) {
+	  				found = true;
+	  				break;
+	  			}
+	  			idx++;
+	  		}
+		}
+		
+		if(found) {
+			sql += "WHERE NOT email = ? ";
+			userEmail = cookies[idx].getValue();	
+		}
     	try (Connection conn = DriverManager.getConnection(url, user, pwd);
         		PreparedStatement ps = conn.prepareStatement(sql);) {
+    		if(found) {
+    			ps.setString(1, userEmail);
+    		}
         	ResultSet rs= ps.executeQuery();
         	
         	
