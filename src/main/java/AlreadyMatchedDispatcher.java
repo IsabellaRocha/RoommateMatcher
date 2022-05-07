@@ -188,7 +188,7 @@ public class AlreadyMatchedDispatcher extends HttpServlet {
     		ex.printStackTrace();
     	}
     	request.setAttribute("display", display);
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/matching.jsp"); 
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AlreadyMatched.jsp"); 
 		dispatcher.forward(request, response); 
     }
     	
