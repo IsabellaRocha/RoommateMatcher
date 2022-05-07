@@ -76,10 +76,25 @@ public class OptionsDispatcher extends HttpServlet {
 	  		}
 		}
 		
+		int userID = 0;
 		if(found) {
 			sql += "WHERE NOT email = ? ";
 			userEmail = cookies[idx].getValue();	
+			String query = "SELECT user_id FROM user_info WHERE email = ? ";
+	    	try (Connection conn = DriverManager.getConnection(url, user, pwd);
+	    			PreparedStatement ps = conn.prepareStatement(query);) {
+	    		
+	    		ps.setString(1, userEmail);    		
+				ResultSet rs = ps.executeQuery();
+				rs.next();
+				userID = rs.getInt("user_id");
+	    	}
+	    	
+	    	catch (SQLException ex ) {
+	    		System.out.println("SQLException" + ex.getMessage());
+	    	}
 		}
+		
     	try (Connection conn = DriverManager.getConnection(url, user, pwd);
         		PreparedStatement ps = conn.prepareStatement(sql);) {
     		if(found) {
@@ -89,6 +104,22 @@ public class OptionsDispatcher extends HttpServlet {
         	
         	
         	while(rs.next()) {
+        		boolean alreadyLiked = false;
+        		
+        		if(found) {
+        			String isPresentSql = "SELECT * FROM response_table WHERE user_id = ? AND other_id = ?";
+            		try (Connection conn2 = DriverManager.getConnection(url, user, pwd);
+                    		PreparedStatement ps2 = conn2.prepareStatement(isPresentSql);) {
+            			ps2.setInt(1, userID);
+            			ps2.setInt(2, rs.getInt("user_id"));
+            			ResultSet rs2 = ps2.executeQuery();
+            			if(rs2.next()) {
+            				alreadyLiked = true;
+            			}
+            		}
+        		}
+        		
+        		
         		String gender = rs.getString("gender");
         		String image = "";
         		if(gender.equals("female")) {
@@ -108,12 +139,17 @@ public class OptionsDispatcher extends HttpServlet {
         				+ "            </div>"
         				+ "            <div class=\"info\">"
         				+ "                <p>"+ rs.getString("full_name") + "</p>"
-        				+ "                <p>Budget: "+ rs.getInt("budget") + "</p>"
-        				+ "					<form action=\"MatchedDispatcher\" method=\"GET\">"
-        				+ "                <button class=\"btn btn-primary\" name=\"other_id\" value=\"" + rs.getInt("user_id") + "\"type=\"submit\">Match!</button>"
-        				+ "					</form> "
-        				+ "            </div>"
-        				+ "        </div>";
+        				+ "                <p>Budget: "+ rs.getInt("budget") + "</p>";
+        		if(!alreadyLiked) {
+        			display += "			<form action=\"MatchedDispatcher\" method=\"GET\">"
+        					+ "             <button class=\"btn btn-primary\" name=\"other_id\" value=\"" + rs.getInt("user_id") + "\"type=\"submit\">Match!</button>"
+            				+ "				</form> ";
+        		}
+        		else {
+        			display += "<p>Already Liked!</p>";
+        		}
+        			display += "            </div>"
+        					+ "        </div>";
         	}
         		
         		
