@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -30,6 +31,7 @@ public class MatchedDispatcher extends HttpServlet {
             e.printStackTrace();
         }
     	
+    	PrintWriter out = response.getWriter();
     	String url = "jdbc:mysql://localhost/final_project"; 
     	String user = "root"; 
     	String pwd = "root";  //your secret database pwd
@@ -55,8 +57,8 @@ public class MatchedDispatcher extends HttpServlet {
 		
 		if(!found) {
 			String errorMessage = "<p style=\"background-color:#FFCCCB;text-align:center;padding: 15px;\">"
-        			+ "Please log in or register before trying to view profile.</p>";
-			System.out.println(errorMessage);
+        			+ "Please log in or register before trying to match.</p>";
+			out.println(errorMessage);
     		request.getRequestDispatcher("/index.jsp").include(request, response);
     		return;
 		}
