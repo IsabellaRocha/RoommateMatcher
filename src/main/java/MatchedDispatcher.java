@@ -93,6 +93,9 @@ public class MatchedDispatcher extends HttpServlet {
     		catch (SQLException ex ) {
     			System.out.println("SQLException" + ex.getMessage());
     		}
+    	
+    	response.setContentType("text/html");
+    	response.sendRedirect("AlreadyMatchedDispatcher");
     			
        	
     }  

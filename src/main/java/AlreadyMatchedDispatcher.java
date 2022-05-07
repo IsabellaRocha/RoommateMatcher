@@ -94,6 +94,7 @@ public class AlreadyMatchedDispatcher extends HttpServlet {
     	}
     	catch (SQLException ex ) {
     		System.out.println("SQLException" + ex.getMessage());
+    		ex.printStackTrace();
     	}
     	// Search for match requests SENT FROM other people
     	String sql = "SELECT user_id FROM response_table WHERE other_id = ? AND choice = true";
@@ -123,16 +124,19 @@ public class AlreadyMatchedDispatcher extends HttpServlet {
                     	}
                     	catch (SQLException ex ) {
                     		System.out.println("SQLException" + ex.getMessage());
+                    		ex.printStackTrace();
                     	}
                 	}
             	}
             	catch (SQLException ex ) {
             		System.out.println("SQLException" + ex.getMessage());
+            		ex.printStackTrace();
             	}
         	}
     	}
     	catch (SQLException ex ) {
     		System.out.println("SQLException" + ex.getMessage());
+    		ex.printStackTrace();
     	}
     	// Search through matches table for all of your matches
     	String sql4 = "SELECT other_id FROM matches_table WHERE user_id = ?";
@@ -148,6 +152,7 @@ public class AlreadyMatchedDispatcher extends HttpServlet {
 	            		PreparedStatement ps5 = conn2.prepareStatement(sql5);) {
 	        		ps5.setInt(1, rs4.getInt("other_id"));
 	        		ResultSet rs5 = ps5.executeQuery();
+	        		rs5.next();
 	        		
             		String gender = rs5.getString("gender");
             		String image = "";
@@ -174,11 +179,13 @@ public class AlreadyMatchedDispatcher extends HttpServlet {
 	        	}
 	        	catch (SQLException ex ) {
 	        		System.out.println("SQLException" + ex.getMessage());
+	        		ex.printStackTrace();
 	        	}
         	}
     	}
     	catch (SQLException ex ) {
     		System.out.println("SQLException" + ex.getMessage());
+    		ex.printStackTrace();
     	}
     	request.setAttribute("display", display);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/matching.jsp"); 
