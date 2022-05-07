@@ -77,10 +77,12 @@ public class OptionsDispatcher extends HttpServlet {
 		}
 		
 		int userID = 0;
+		int minAge = 0;
+		int maxAge = 0;
 		if(found) {
-			sql += "WHERE NOT email = ? ";
+			sql += "WHERE NOT email = ? AND age <= ? AND age >= ?";
 			userEmail = cookies[idx].getValue();	
-			String query = "SELECT user_id FROM user_info WHERE email = ? ";
+			String query = "SELECT user_id, min_roommate_age, max_roommate_age FROM user_info WHERE email = ? ";
 	    	try (Connection conn = DriverManager.getConnection(url, user, pwd);
 	    			PreparedStatement ps = conn.prepareStatement(query);) {
 	    		
@@ -88,6 +90,8 @@ public class OptionsDispatcher extends HttpServlet {
 				ResultSet rs = ps.executeQuery();
 				rs.next();
 				userID = rs.getInt("user_id");
+				minAge = rs.getInt("min_roommate_age");
+				maxAge = rs.getInt("max_roommate_age");
 	    	}
 	    	
 	    	catch (SQLException ex ) {
@@ -99,6 +103,8 @@ public class OptionsDispatcher extends HttpServlet {
         		PreparedStatement ps = conn.prepareStatement(sql);) {
     		if(found) {
     			ps.setString(1, userEmail);
+    			ps.setInt(2, maxAge);
+    			ps.setInt(3, minAge);
     		}
         	ResultSet rs= ps.executeQuery();
         	
