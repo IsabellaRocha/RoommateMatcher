@@ -13,7 +13,9 @@
 <body>
     <div class="navbar">
 		<img src="puzzle.png" alt="Logo">
+		
 		<a class="active" href="index.jsp">Home</a>
+		<a href="about.html">About Us</a>
 		<a href="ProfileDispatcher">Profile</a>
 		<a href="#history">Match History</a>
 		<a href="OptionsDispatcher">Get Matching!</a>

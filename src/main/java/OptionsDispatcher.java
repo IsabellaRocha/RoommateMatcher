@@ -54,7 +54,7 @@ public class OptionsDispatcher extends HttpServlet {
     	String user = "root"; 
     	String pwd = "root";  //your secret database pwd
     	
-    	String display = "<h1>Get Matching!</h1><br>";
+    	String display = "";
     	
     	String sql = "SELECT *"
     					+ "FROM user_info";
@@ -84,7 +84,9 @@ public class OptionsDispatcher extends HttpServlet {
         				+ "            <div class=\"info\">"
         				+ "                <p>"+ rs.getString("full_name") + "</p>"
         				+ "                <p>Budget: "+ rs.getInt("budget") + "</p>"
+        				+ "					<form action=\"MatchDispatcher\" method=\"GET\">"
         				+ "                <button class=\"btn btn-primary\" value=\"" + rs.getInt("user_id") + "\"type=\"submit\">Match!</button>"
+        				+ "					</form> "
         				+ "            </div>"
         				+ "        </div>";
         	}
