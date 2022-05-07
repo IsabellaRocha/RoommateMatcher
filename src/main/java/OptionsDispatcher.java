@@ -68,7 +68,6 @@ public class OptionsDispatcher extends HttpServlet {
 		boolean found = false;
 		if(cookies != null) {
 			for(int i = 0; i < cookies.length; i++) {
-				System.out.println(cookies[i].getValue());
 	  			if((cookies[i].getName()).trim().equals("ck_email")) {
 	  				found = true;
 	  				break;
